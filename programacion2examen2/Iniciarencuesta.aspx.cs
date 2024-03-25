@@ -11,6 +11,7 @@ using System.Drawing;
 using System.Security.Cryptography;
 using System.Reflection.Emit;
 using Label1 = System.Web.UI.ITextControl;
+using System.Linq.Expressions;
 
 namespace programacion2examen2
 {
@@ -84,9 +85,10 @@ namespace programacion2examen2
         // Validar si la edad está en el rango especificado
         if (edad < 18 || edad > 50)
         {
-                    //Label1.Text = "Lo sentimos, la edad debe estar entre 18 y 50 años para ingresar la encuesta.";
-            return;
-        }
+                    string errorMessage = "alert('Lo sentimos, la edad debe estar entre 18 y 50 años para ingresar la encuesta.');";
+                    ScriptManager.RegisterStartupScript(this, GetType(), "ErrorScript", errorMessage, true);
+                    return;
+                }
 
         // Consulta SQL para insertar en la tabla encuesta
         string query = "INSERT INTO encuesta (nombre, apellido, fechanacimiento, edad, correo, carropropio) VALUES (@nombre, @apellido, @fechanacimiento, @edad, @correo, @carropropio)";
